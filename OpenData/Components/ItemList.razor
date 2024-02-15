@@ -1,0 +1,94 @@
+﻿@inject IJSRuntime JSRuntime
+@typeparam TItem
+
+@if (!string.IsNullOrEmpty(Model.Title))
+{
+    <h2>@Model.ItemName list</h2>
+}
+
+<button class="btn btn-primary" @onclick="OnAdd">Voeg @Model.ItemName toe</button>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            @foreach (var header in Model.Headers)
+             {
+                 <th>@header</th>
+             }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+         {
+
+            <tr>
+                @foreach (var property in item.GetType().GetProperties())
+                 {
+                     propList.Add(property);
+                 }
+
+                @for (int i = 0; i < 2; i++)
+                 {
+                     <td>@propList[i].GetValue(item)</td>
+                 }
+
+                <td>
+                    <button class="btn btn-info" @onclick="e => OnDetails.InvokeAsync(item)">Details</button>
+                    <button class="btn btn-warning" @onclick="e => OnEdit.InvokeAsync(item)">Edit</button>
+                    <button class="btn btn-danger" @onclick="e => OnShowDeleteModal(item)">Delete</button>
+                </td>
+            </tr>
+         }
+    </tbody>
+</table>
+
+<div class="modal" id="deleteitemmodal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> <h4 class="modal-title">Delete @Model.ItemName</h4> <button type="button" class="btn-close" data-bs-dismiss="modal"></button> </div> <div class="modal-body"> Wil je deze plaats voor @Model.ItemName verwijderen? </div> <div class="modal-footer">
+                <button type="button" class="btn btn-danger" @onclick="e=> OnConfirmDeleteModal()">Yes</button> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public RenderFragment<TItem> FieldsTemplate { get; set; }
+
+    [Parameter]
+    public ItemListModel<TItem> Model { get; set; }
+
+    [Parameter]
+    public EventCallback OnAdd { get; set; }
+
+    [Parameter]
+    public EventCallback<TItem> OnDetails { get; set; }
+
+    [Parameter]
+    public EventCallback<TItem> OnEdit { get; set; }
+
+    [Parameter]
+    public EventCallback<TItem> OnDelete { get; set; }
+
+    private TItem itemToDelete;
+    private TItem itemForDetails;
+
+    private List<System.Reflection.PropertyInfo> propList = new List<System.Reflection.PropertyInfo>();
+
+    private async Task OnShowDeleteModal(TItem item)
+    {
+        itemToDelete = item;
+        await JSRuntime.InvokeVoidAsync("showConfirmDelete", "deleteitemmodal");
+    }
+
+    private async Task OnConfirmDeleteModal()
+    {
+        await OnDelete.InvokeAsync(itemToDelete);
+        await JSRuntime.InvokeVoidAsync("hideConfirmDelete", "deleteitemmodal");
+    }
+
+}
