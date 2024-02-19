@@ -10,7 +10,7 @@ namespace OpenData.Core.Services
 {
     public class DrinkableWaterService : IDrinkableWaterService
     {
-        private string jsonData = Path.GetFullPath(@"../Pin.OpenData.Core/Data/drinkwaterplekken-gent.json");
+        private string jsonData = Path.GetFullPath(@"../OpenData.Core/Data/drinkwaterplekken-gent.json");
         private List<DrinkableWater> _mywaters = new List<DrinkableWater>();
         int newId = 1;
 

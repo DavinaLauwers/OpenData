@@ -1,9 +1,57 @@
 ﻿@page "/"
+@using OpenData.Models;
+@using OpenData.Components;
 
-<PageTitle>Index</PageTitle>
+@inject IDrinkableWaterService waterService;
 
-<h1>Hello, world!</h1>
+<PageTitle>Drinkwaterplekken in Gent</PageTitle>
 
-Welcome to your new app.
+<h1>Op deze locaties vind je drinkbaar water in Gent</h1>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="mt-3">
+    @if (!string.IsNullOrEmpty(error))
+    {
+        <div class="alert alert-danger">
+            @error
+        </div>
+    }
+</div>
+
+@if (currentDrinkableWater.Item == null)
+{
+    <ItemList TItem="DrinkableWater"
+              Model="listModel"
+             >
+
+    </ItemList>
+}
+
+@code {
+
+    private string error;
+
+    private ItemListModel<DrinkableWater> listModel = new ItemListModel<DrinkableWater>
+    {
+        ItemName = "Drinkbaar water",
+        Headers = new string[] { "Id", "Naam" },
+        Items = new DrinkableWater[0],
+    };
+
+    private ItemDetailsModel<DrinkableWater> currentDrinkableWater = new ItemDetailsModel<DrinkableWater>
+    {
+        ItemName = "Drinkbaar water"
+    };
+
+    protected override void OnInitialized()
+    {
+        RefreshDrinkableWater();
+    }
+
+    private async Task RefreshDrinkableWater()
+    {
+        currentDrinkableWater.Item = null;
+        listModel.Items = (await waterService.GetDrinkableWaterPlaces()).ToArray();
+        currentDrinkableWater.IsNew = false;
+        currentDrinkableWater.InEdit = false;
+    }
+}

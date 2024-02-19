@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using OpenData.Core.Services;
 
 
 namespace OpenData
@@ -13,7 +14,8 @@ namespace OpenData
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-       
+
+            builder.Services.AddSingleton<IDrinkableWaterService, DrinkableWaterService>();
 
             var app = builder.Build();
 
