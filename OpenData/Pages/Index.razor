@@ -15,184 +15,262 @@
             @error
         </div>
     }
+
+
+    @if (currentDrinkableWater.Item == null)
+    {
+        <ItemList TItem="DrinkableWater"
+                  Model="listModel"
+                  OnAdd="AddDrinkableWater"
+                  OnDetails="GetDetails"
+                  OnEdit="EditDrinkableWater">
+
+        </ItemList>
+    }
+    //
+    else if (currentDrinkableWater.Item != null && currentDrinkableWater.InEdit == false && currentDrinkableWater.IsNew == false)
+    {
+        <ItemDetails TItem="DrinkableWater"
+                     Model="currentDrinkableWater"
+                     OnCancel="RefreshDrinkableWater">
+            <FieldsTemplate Context="drinkableWater">
+                <div class="form-group">
+                    <label for="name">Naam: </label>
+                    <InputText id="name" class="form-control"
+                               @bind-Value="drinkableWater.Name"
+                               disabled="disabled" />
+                    <ValidationMessage For="@(() => drinkableWater.Name)" />
+                </div>
+                <div class="form-group">
+                    <label for="streetname">Straatnaam: </label>
+                    <InputText id="streetname" class="form-control"
+                               @bind-Value="drinkableWater.StreetName"
+                               disabled="disabled" />
+                </div>
+                <div class="form-group">
+                    <label for="housenumber">Huisnummer: </label>
+                    <InputText id="housenumber" class="form-control"
+                               @bind-Value="drinkableWater.HouseNumber"
+                               disabled="disabled" />
+                </div>
+                <div class="form-group">
+                    <label for="postalcode">Postcode: </label>
+                    <InputText id="postalcode" class="form-control"
+                               @bind-Value="drinkableWater.PostalCode"
+                               disabled="disabled" />
+                </div>
+                <div class="form-group">
+                    <label for="city">Gemeente: </label>
+                    <InputText id="city" class="form-control"
+                               @bind-Value="drinkableWater.City"
+                               disabled="disabled" />
+                </div>
+                <div class="form-group">
+                    <label for="website">Website: </label>
+                    <InputText id="website" class="form-control"
+                               @bind-Value="drinkableWater.Website"
+                               disabled="disabled" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email: </label>
+                    <InputText id="email" class="form-control"
+                               @bind-Value="drinkableWater.Email"
+                               disabled="disabled" />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefoon: </label>
+                    <InputText id="phone" class="form-control"
+                               @bind-Value="drinkableWater.Phone"
+                               disabled="disabled" />
+                </div>
+                <div class="form-group">
+                    <label for="keyword">Trefwoord: </label>
+                    <InputText id="keyword" class="form-control"
+                               @bind-Value="drinkableWater.Keyword"
+                               disabled="disabled" />
+                </div>
+                <div class="form-group">
+                    <label for="sectorcode">Sectorcode: </label>
+                    <InputText id="sectorcode" class="form-control"
+                               @bind-Value="drinkableWater.SectorCode"
+                               disabled="disabled" />
+                </div>
+                <div class="form-group">
+                    <label for="sectorname">Sectornaam: </label>
+                    <InputText id="sectorname" class="form-control"
+                               @bind-Value="drinkableWater.SectorName"
+                               disabled="disabled" />
+                </div>
+                <div class="form-group">
+                    <label for="neighbourhoodcode">Wijkcode: </label>
+                    <InputText id="neighbourhoodcode" class="form-control"
+                               @bind-Value="drinkableWater.NeighbourhoodCode"
+                               disabled="disabled" />
+                </div>
+                <div class="form-group">
+                    <label for="neighbourhoodname">Wijknaam: </label>
+                    <InputText id="neighbourhoodname" class="form-control"
+                               @bind-Value="drinkableWater.NeighbourhoodName"
+                               disabled="disabled" />
+                </div>
+            </FieldsTemplate>
+        </ItemDetails>
+    }
+
+    else if (currentDrinkableWater.Item != null && currentDrinkableWater.InEdit == true && currentDrinkableWater.IsNew == false)
+    {
+        <ItemEdit TItem="DrinkableWater"
+                  Model="currentDrinkableWater"
+                  OnSave="SaveDrinkableWater"
+                  OnCancel="RefreshDrinkableWater">
+            <FieldsTemplate Context="drinkableWater">
+                <div class="form-group">
+                    <label for="name">Naam: </label>
+                    <InputText id="name" class="form-control"
+                               @bind-Value="drinkableWater.Name" />
+                    <ValidationMessage For="@(() => drinkableWater.Name)" />
+                </div>
+                <div class="form-group">
+                    <label for="streetname">Straatnaam: </label>
+                    <InputText id="streetname" class="form-control"
+                               @bind-Value="drinkableWater.StreetName" />
+                </div>
+                <div class="form-group">
+                    <label for="housenumber">Huisnummer: </label>
+                    <InputText id="housenumber" class="form-control"
+                               @bind-Value="drinkableWater.HouseNumber" />
+                </div>
+                <div class="form-group">
+                    <label for="postalcode">Postcode: </label>
+                    <InputText id="postalcode" class="form-control"
+                               @bind-Value="drinkableWater.PostalCode" />
+                </div>
+                <div class="form-group">
+                    <label for="city">Gemeente: </label>
+                    <InputText id="city" class="form-control"
+                               @bind-Value="drinkableWater.City" />
+                </div>
+                <div class="form-group">
+                    <label for="website">Website: </label>
+                    <InputText id="website" class="form-control"
+                               @bind-Value="drinkableWater.Website" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email: </label>
+                    <InputText id="email" class="form-control"
+                               @bind-Value="drinkableWater.Email" />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefoon: </label>
+                    <InputText id="phone" class="form-control"
+                               @bind-Value="drinkableWater.Phone" />
+                </div>
+                <div class="form-group">
+                    <label for="keyword">Trefwoord: </label>
+                    <InputText id="keyword" class="form-control"
+                               @bind-Value="drinkableWater.Keyword" />
+                </div>
+                <div class="form-group">
+                    <label for="sectorcode">Sectorcode: </label>
+                    <InputText id="sectorcode" class="form-control"
+                               @bind-Value="drinkableWater.SectorCode" />
+                </div>
+                <div class="form-group">
+                    <label for="sectorname">Sectornaam: </label>
+                    <InputText id="sectorname" class="form-control"
+                               @bind-Value="drinkableWater.SectorName" />
+                </div>
+                <div class="form-group">
+                    <label for="neighbourhoodcode">Wijkcode: </label>
+                    <InputText id="neighbourhoodcode" class="form-control"
+                               @bind-Value="drinkableWater.NeighbourhoodCode" />
+                </div>
+                <div class="form-group">
+                    <label for="neighbourhoodname">Wijknaam: </label>
+                    <InputText id="neighbourhoodname" class="form-control"
+                               @bind-Value="drinkableWater.NeighbourhoodName" />
+                </div>
+            </FieldsTemplate>
+        </ItemEdit>
+    }
+
+    else
+    {
+        <ItemEdit TItem="DrinkableWater"
+                  Model="currentDrinkableWater"
+                  OnSave="SaveDrinkableWater"
+                  OnCancel="RefreshDrinkableWater">
+            <FieldsTemplate Context="drinkableWater">
+                <div class="form-group">
+                    <label for="name">Naam: </label>
+                    <InputText id="name" class="form-control"
+                               @bind-Value="drinkableWater.Name" />
+                    <ValidationMessage For="@(() => drinkableWater.Name)" />
+                </div>
+                <div class="form-group">
+                    <label for="streetname">Straatnaam: </label>
+                    <InputText id="streetname" class="form-control"
+                               @bind-Value="drinkableWater.StreetName" />
+                </div>
+                <div class="form-group">
+                    <label for="housenumber">Huisnummer: </label>
+                    <InputText id="housenumber" class="form-control"
+                               @bind-Value="drinkableWater.HouseNumber" />
+                </div>
+                <div class="form-group">
+                    <label for="postalcode">Postcode: </label>
+                    <InputText id="postalcode" class="form-control"
+                               @bind-Value="drinkableWater.PostalCode" />
+                </div>
+                <div class="form-group">
+                    <label for="city">Gemeente: </label>
+                    <InputText id="city" class="form-control"
+                               @bind-Value="drinkableWater.City" />
+                </div>
+                <div class="form-group">
+                    <label for="website">Website: </label>
+                    <InputText id="website" class="form-control"
+                               @bind-Value="drinkableWater.Website" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email: </label>
+                    <InputText id="email" class="form-control"
+                               @bind-Value="drinkableWater.Email" />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefoon: </label>
+                    <InputText id="phone" class="form-control"
+                               @bind-Value="drinkableWater.Phone" />
+                </div>
+                <div class="form-group">
+                    <label for="keyword">Trefwoord: </label>
+                    <InputText id="keyword" class="form-control"
+                               @bind-Value="drinkableWater.Keyword" />
+                </div>
+                <div class="form-group">
+                    <label for="sectorcode">Sectorcode: </label>
+                    <InputText id="sectorcode" class="form-control"
+                               @bind-Value="drinkableWater.SectorCode" />
+                </div>
+                <div class="form-group">
+                    <label for="sectorname">Sectornaam: </label>
+                    <InputText id="sectorname" class="form-control"
+                               @bind-Value="drinkableWater.SectorName" />
+                </div>
+                <div class="form-group">
+                    <label for="neighbourhoodcode">Wijkcode: </label>
+                    <InputText id="neighbourhoodcode" class="form-control"
+                               @bind-Value="drinkableWater.NeighbourhoodCode" />
+                </div>
+                <div class="form-group">
+                    <label for="neighbourhoodname">Wijknaam: </label>
+                    <InputText id="neighbourhoodname" class="form-control"
+                               @bind-Value="drinkableWater.NeighbourhoodName" />
+                </div>
+            </FieldsTemplate>
+        </ItemEdit>
+    }
 </div>
-
-@if (currentDrinkableWater.Item == null)
-{
-    <ItemList TItem="DrinkableWater"
-              Model="listModel"
-              OnDetails="GetDetails"
-              OnEdit="EditDrinkableWater"
-              >
-
-    </ItemList>
-}
-//
-else if (currentDrinkableWater.Item != null && currentDrinkableWater.InEdit == false && currentDrinkableWater.IsNew == false)
-{
-    <ItemDetails TItem="DrinkableWater"
-                 Model="currentDrinkableWater"
-                 OnCancel="RefreshDrinkableWater">
-        <FieldsTemplate Context="drinkableWater">
-            <div class="form-group">
-                <label for="name">Naam: </label>
-                <InputText id="name" class="form-control"
-                           @bind-Value="drinkableWater.Name"
-                           disabled="disabled" />
-                <ValidationMessage For="@(() => drinkableWater.Name)" />
-            </div>
-            <div class="form-group">
-                <label for="streetname">Straatnaam: </label>
-                <InputText id="streetname" class="form-control"
-                           @bind-Value="drinkableWater.StreetName"
-                           disabled="disabled" />
-            </div>
-            <div class="form-group">
-                <label for="housenumber">Huisnummer: </label>
-                <InputText id="housenumber" class="form-control"
-                           @bind-Value="drinkableWater.HouseNumber"
-                           disabled="disabled" />
-            </div>
-            <div class="form-group">
-                <label for="postalcode">Postcode: </label>
-                <InputText id="postalcode" class="form-control"
-                           @bind-Value="drinkableWater.PostalCode"
-                           disabled="disabled" />
-            </div>
-            <div class="form-group">
-                <label for="city">Gemeente: </label>
-                <InputText id="city" class="form-control"
-                           @bind-Value="drinkableWater.City"
-                           disabled="disabled" />
-            </div>
-            <div class="form-group">
-                <label for="website">Website: </label>
-                <InputText id="website" class="form-control"
-                           @bind-Value="drinkableWater.Website"
-                           disabled="disabled" />
-            </div>
-            <div class="form-group">
-                <label for="email">Email: </label>
-                <InputText id="email" class="form-control"
-                           @bind-Value="drinkableWater.Email"
-                           disabled="disabled" />
-            </div>
-            <div class="form-group">
-                <label for="phone">Telefoon: </label>
-                <InputText id="phone" class="form-control"
-                           @bind-Value="drinkableWater.Phone"
-                           disabled="disabled" />
-            </div>
-            <div class="form-group">
-                <label for="keyword">Trefwoord: </label>
-                <InputText id="keyword" class="form-control"
-                           @bind-Value="drinkableWater.Keyword"
-                           disabled="disabled" />
-            </div>
-            <div class="form-group">
-                <label for="sectorcode">Sectorcode: </label>
-                <InputText id="sectorcode" class="form-control"
-                           @bind-Value="drinkableWater.SectorCode"
-                           disabled="disabled" />
-            </div>
-            <div class="form-group">
-                <label for="sectorname">Sectornaam: </label>
-                <InputText id="sectorname" class="form-control"
-                           @bind-Value="drinkableWater.SectorName"
-                           disabled="disabled" />
-            </div>
-            <div class="form-group">
-                <label for="neighbourhoodcode">Wijkcode: </label>
-                <InputText id="neighbourhoodcode" class="form-control"
-                           @bind-Value="drinkableWater.NeighbourhoodCode"
-                           disabled="disabled" />
-            </div>
-            <div class="form-group">
-                <label for="neighbourhoodname">Wijknaam: </label>
-                <InputText id="neighbourhoodname" class="form-control"
-                           @bind-Value="drinkableWater.NeighbourhoodName"
-                           disabled="disabled" />
-            </div>
-        </FieldsTemplate>
-    </ItemDetails>
-}
-
-else if (currentDrinkableWater.Item != null && currentDrinkableWater.InEdit == true && currentDrinkableWater.IsNew == false)
-{
-    <ItemEdit TItem="DrinkableWater"
-              Model="currentDrinkableWater"
-              OnSave="SaveDrinkableWater"
-              OnCancel="RefreshDrinkableWater">
-        <FieldsTemplate Context="drinkableWater">
-            <div class="form-group">
-                <label for="name">Naam: </label>
-                <InputText id="name" class="form-control"
-                           @bind-Value="drinkableWater.Name" />
-                <ValidationMessage For="@(() => drinkableWater.Name)" />
-            </div>
-            <div class="form-group">
-                <label for="streetname">Straatnaam: </label>
-                <InputText id="streetname" class="form-control"
-                           @bind-Value="drinkableWater.StreetName" />
-            </div>
-            <div class="form-group">
-                <label for="housenumber">Huisnummer: </label>
-                <InputText id="housenumber" class="form-control"
-                           @bind-Value="drinkableWater.HouseNumber" />
-            </div>
-            <div class="form-group">
-                <label for="postalcode">Postcode: </label>
-                <InputText id="postalcode" class="form-control"
-                           @bind-Value="drinkableWater.PostalCode" />
-            </div>
-            <div class="form-group">
-                <label for="city">Gemeente: </label>
-                <InputText id="city" class="form-control"
-                           @bind-Value="drinkableWater.City" />
-            </div>
-            <div class="form-group">
-                <label for="website">Website: </label>
-                <InputText id="website" class="form-control"
-                           @bind-Value="drinkableWater.Website" />
-            </div>
-            <div class="form-group">
-                <label for="email">Email: </label>
-                <InputText id="email" class="form-control"
-                           @bind-Value="drinkableWater.Email" />
-            </div>
-            <div class="form-group">
-                <label for="phone">Telefoon: </label>
-                <InputText id="phone" class="form-control"
-                           @bind-Value="drinkableWater.Phone" />
-            </div>
-            <div class="form-group">
-                <label for="keyword">Trefwoord: </label>
-                <InputText id="keyword" class="form-control"
-                           @bind-Value="drinkableWater.Keyword" />
-            </div>
-            <div class="form-group">
-                <label for="sectorcode">Sectorcode: </label>
-                <InputText id="sectorcode" class="form-control"
-                           @bind-Value="drinkableWater.SectorCode" />
-            </div>
-            <div class="form-group">
-                <label for="sectorname">Sectornaam: </label>
-                <InputText id="sectorname" class="form-control"
-                           @bind-Value="drinkableWater.SectorName" />
-            </div>
-            <div class="form-group">
-                <label for="neighbourhoodcode">Wijkcode: </label>
-                <InputText id="neighbourhoodcode" class="form-control"
-                           @bind-Value="drinkableWater.NeighbourhoodCode" />
-            </div>
-            <div class="form-group">
-                <label for="neighbourhoodname">Wijknaam: </label>
-                <InputText id="neighbourhoodname" class="form-control"
-                           @bind-Value="drinkableWater.NeighbourhoodName" />
-            </div>
-        </FieldsTemplate>
-    </ItemEdit>
-}
 
 @code {
 
@@ -256,6 +334,13 @@ else if (currentDrinkableWater.Item != null && currentDrinkableWater.InEdit == t
         {
             this.error = ex.Message;
         }
+
+    }
+
+    private void AddDrinkableWater()
+    {
+        this.currentDrinkableWater.Item = new DrinkableWater();
+        this.currentDrinkableWater.IsNew = true;
 
     }
 }
