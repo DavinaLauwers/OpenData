@@ -3,7 +3,7 @@
 
 @if (!string.IsNullOrEmpty(Model.Title))
 {
-    <h2>@Model.ItemName list</h2>
+    <h2>@Model.ItemName lijst</h2>
 }
 
 <button class="btn btn-primary" @onclick="OnAdd">Voeg nieuw @Model.ItemName toe</button>
@@ -46,8 +46,8 @@
 <div class="modal" id="deleteitemmodal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header"> <h4 class="modal-title">Delete @Model.ItemName</h4> <button type="button" class="btn-close" data-bs-dismiss="modal"></button> </div> <div class="modal-body"> Wil je deze plaats voor @Model.ItemName verwijderen? </div> <div class="modal-footer">
-                <button type="button" class="btn btn-danger" @onclick="e=> OnConfirmDeleteModal()">Yes</button> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <div class="modal-header"> <h4 class="modal-title">Verwijder @Model.ItemName</h4> <button type="button" class="btn-close" data-bs-dismiss="modal"></button> </div> <div class="modal-body"> Wil je deze plaats voor @Model.ItemName verwijderen? </div> <div class="modal-footer">
+                <button type="button" class="btn btn-danger" @onclick="e=> OnConfirmDeleteModal()">Ja</button> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nee</button>
             </div>
         </div>
     </div>

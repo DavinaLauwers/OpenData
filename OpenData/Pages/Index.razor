@@ -23,11 +23,12 @@
                   Model="listModel"
                   OnAdd="AddDrinkableWater"
                   OnDetails="GetDetails"
-                  OnEdit="EditDrinkableWater">
+                  OnEdit="EditDrinkableWater"
+                  OnDelete="DeleteDrinkableWater">
 
         </ItemList>
     }
-    //
+    
     else if (currentDrinkableWater.Item != null && currentDrinkableWater.InEdit == false && currentDrinkableWater.IsNew == false)
     {
         <ItemDetails TItem="DrinkableWater"
@@ -278,14 +279,14 @@
 
     private ItemListModel<DrinkableWater> listModel = new ItemListModel<DrinkableWater>
     {
-        ItemName = "Drinkbaar water",
+        ItemName = "drinkbaar water",
         Headers = new string[] { "Id", "Naam" },
         Items = new DrinkableWater[0],
     };
 
     private ItemDetailsModel<DrinkableWater> currentDrinkableWater = new ItemDetailsModel<DrinkableWater>
     {
-        ItemName = "Drinkbaar water"
+        ItemName = "drinkbaar water"
     };
 
     protected override void OnInitialized()
@@ -342,5 +343,11 @@
         this.currentDrinkableWater.Item = new DrinkableWater();
         this.currentDrinkableWater.IsNew = true;
 
+    }
+
+    private void DeleteDrinkableWater(DrinkableWater drinkableWaterToDelete)
+    {
+        waterService.Delete(drinkableWaterToDelete.Id);
+        RefreshDrinkableWater();
     }
 }

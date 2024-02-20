@@ -9,7 +9,15 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            @if (showWidget)
+            {
+                
+
+            }
+            else
+            {
+
+            }
         </div>
 
         <article class="content px-4">
@@ -17,3 +25,18 @@
         </article>
     </main>
 </div>
+
+
+@code {
+    private bool showWidget = true;
+
+    private void CloseWidget()
+    {
+        showWidget = false;
+    }
+
+    private void ShowWidget()
+    {
+        showWidget = true;
+    }
+}
