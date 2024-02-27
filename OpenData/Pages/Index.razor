@@ -6,7 +6,7 @@
 
 <PageTitle>Drinkwaterplekken in Gent</PageTitle>
 
-<h1>Op deze locaties vind je drinkbaar water in Gent</h1>
+
 
 <div class="mt-3">
     @if (!string.IsNullOrEmpty(error))
@@ -19,6 +19,7 @@
 
     @if (currentDrinkableWater.Item == null)
     {
+        <h1>Op deze locaties vind je drinkbaar water in Gent</h1>
         <ItemList TItem="DrinkableWater"
                   Model="listModel"
                   OnAdd="AddDrinkableWater"
@@ -28,13 +29,16 @@
 
         </ItemList>
     }
-    
+
     else if (currentDrinkableWater.Item != null && currentDrinkableWater.InEdit == false && currentDrinkableWater.IsNew == false)
     {
         <ItemDetails TItem="DrinkableWater"
                      Model="currentDrinkableWater"
                      OnCancel="RefreshDrinkableWater">
             <FieldsTemplate Context="drinkableWater">
+                <div>
+                    <h3>@currentDrinkableWater.Item.Name</h3>
+                </div>
                 <div class="form-group">
                     <label for="name">Naam: </label>
                     <InputText id="name" class="form-control"
@@ -125,6 +129,9 @@
                   OnSave="SaveDrinkableWater"
                   OnCancel="RefreshDrinkableWater">
             <FieldsTemplate Context="drinkableWater">
+                <div>
+                    <h3>@currentDrinkableWater.Item.Name</h3>
+                </div>
                 <div class="form-group">
                     <label for="name">Naam: </label>
                     <InputText id="name" class="form-control"
